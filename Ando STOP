@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stoppuhr</title>
+<style>
+  body {
+    font-family: sans-serif;
+    text-align: center;
+    padding: 50px;
+    background: #f0f0f0;
+  }
+  #display {
+    font-size: 48px;
+    margin: 20px 0;
+  }
+  button {
+    font-size: 20px;
+    padding: 10px 20px;
+    margin: 5px;
+    border-radius: 10px;
+    border: none;
+    background: #28AA5A;
+    color: white;
+  }
+  button:hover {
+    background: #1e7b3a;
+  }
+</style>
+</head>
+<body>
+
+<h1>Stoppuhr</h1>
+<div id="display">00:00:00</div>
+<button onclick="start()">Start</button>
+<button onclick="stop()">Stopp</button>
+<button onclick="reset()">Reset</button>
+
+<script>
+let timer = null;
+let seconds = 0;
+
+function updateDisplay() {
+  let hrs = Math.floor(seconds / 3600);
+  let mins = Math.floor((seconds % 3600) / 60);
+  let secs = seconds % 60;
+  document.getElementById('display').textContent =
+    String(hrs).padStart(2, '0') + ':' +
+    String(mins).padStart(2, '0') + ':' +
+    String(secs).padStart(2, '0');
+}
+
+function start() {
+  if (timer) return;
+  timer = setInterval(() => { seconds++; updateDisplay(); }, 1000);
+}
+
+function stop() {
+  clearInterval(timer);
+  timer = null;
+}
+
+function reset() {
+  stop();
+  seconds = 0;
+  updateDisplay();
+}
+</script>
+
+</body>
+</html>
